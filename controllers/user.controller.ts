@@ -1,10 +1,10 @@
 import { Request, Response } from 'express';
-import UserModel from '../models/user';
+import UserModel from '../models/userModel';
 
-export const getUsers = async (_req: Request, res: Response) => {
+export const getUsers = async (req: Request, res: Response) => {
     try {
         const users = await UserModel.find();
-        res.json(users);
+        res.json(users,);
     } catch (err: any) {
         res.status(500).send(err.message);
     }
