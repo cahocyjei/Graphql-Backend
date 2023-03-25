@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import UserRoutes from '../routes/user.router';
 import bodyParser from 'body-parser';
-import { createRoles } from '../libs/initial.setup'
+import { createRoles } from './initial.setup'
 
 const dbURL = 'mongodb://db';
 async function serverStart(app:any,serverPort: any){

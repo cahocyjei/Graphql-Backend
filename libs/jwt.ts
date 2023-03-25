@@ -1,6 +1,13 @@
 import jwt from 'jsonwebtoken';
-import config from '../confi'
+import config from '../config'
 
 export function createToken(payload:object,expire:object){
     return jwt.sign(payload,config.SECRET,expire);
+}
+
+
+export const expireToken = (token:string)=>{
+    const decoded = Object.entries(jwt.verify(token,config.SECRET));
+    const claims = Object.fromEntries(decoded);
+    return claims;
 }

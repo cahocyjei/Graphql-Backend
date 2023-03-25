@@ -1,9 +1,8 @@
 
 import { Schema, model,Document,Model,Types} from 'mongoose';
 import bcrypt from 'bcryptjs';
-import { timeStamp } from 'console';
 
-interface User extends Document{
+interface User{
   name: string;
   email: string;
   password:string;
@@ -27,7 +26,7 @@ const userSchema = new Schema<User>({
 {timestamps:true,versionKey:false} 
 );
 
-userSchema.statics.encryptPassword = async (password:string)=>{
+userSchema.statics.encryptPassword = async (password)=>{
   const salt = await bcrypt.genSalt(10);
   return await bcrypt.hash(password,salt);
 }
