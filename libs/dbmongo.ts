@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 import UserRoutes from '../routes/user.router';
 import bodyParser from 'body-parser';
 import { createRoles } from './initial.setup'
+import cooKieParser from 'cookie-parser';
 
 const dbURL = 'mongodb://db';
 async function serverStart(app:any,serverPort: any){
@@ -18,6 +19,7 @@ async function serverStart(app:any,serverPort: any){
         console.log('Server started on port: ' + serverPort);
       });
       
+      app.use(cooKieParser());
       app.use(bodyParser.json());
       app.use(bodyParser.urlencoded({ extended: true }));
       console.log('Body parser configured. ' + serverPort);

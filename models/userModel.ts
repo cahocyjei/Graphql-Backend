@@ -1,5 +1,5 @@
 
-import { Schema, model,Document,Model,Types} from 'mongoose';
+import { Schema, model,Document,Model,Types, isValidObjectId} from 'mongoose';
 import bcrypt from 'bcryptjs';
 
 interface User{
@@ -15,15 +15,42 @@ interface IUser extends Model<User> {
 }
 
 const userSchema = new Schema<User>({
-  name:{type: String,required: true},
-  email:{type: String,required: true,unique: true},
-  password:{type:String,required:true},
+  name:{
+    type: String,
+    required: true,
+    trim:true,
+    minlength:4,
+    maxlength:50
+  },
+  email:{
+    type: String,
+    required: true,
+    unique: true,
+    trim:true,
+    lowercase:true,
+    validate:{
+      validator:function (v: string) {
+        return /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/.test(v);
+      },
+      message:'Invalid email address'
+    }
+ 
+},
+
+  password:{
+    type:String,
+    required:true,
+    minlength:8,
+    maxlength:8
+  },
+  
   roles:[{
     ref:"Role",
     type:Schema.Types.ObjectId
   }],
 },
-{timestamps:true,versionKey:false} 
+{timestamps:true,versionKey:false},
+
 );
 
 userSchema.statics.encryptPassword = async (password)=>{

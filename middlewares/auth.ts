@@ -1,37 +1,54 @@
 import { Request, Response, NextFunction } from 'express';
-import jwt from 'jsonwebtoken';
+import { verifyToken } from '../libs/jwt';
 import UserModel from '../models/userModel';
-import config from '../config';
 import Roles from '../models/Roles';
 
 
-export const verifyToken = async (req: Request, res: Response, next: NextFunction) => {
-    const jwHeader = req.headers["x-access-token"];
-    const token = jwHeader?.toString();
-    if (!token) return res.json("Token no provided");
-    try {
-        const decoded = jwt.verify(token, config.SECRET);
-        if (decoded) {
-            const convertDeco = Object.entries(decoded);
-            const claims = Object.fromEntries(convertDeco);
-            const foundUser = await UserModel.findById(claims.id);
-            const foundRoles = await Roles.findOne({ name: { $in: 'admin' } });
-            foundUser?.roles.filter(rol => rol === foundRoles?._id) ? next() : res.json('unauthorized');
-        }
-    } catch (error: any) {
-        res.status(400).json(error.message);
-    }
-}
-
 export const checkRoles = async (req: Request, res: Response, next: NextFunction) => {
-    if (req.body.roles) {
-        const foundRoles = await Roles.find();
-        for (let i = 0; i < req.body.roles.length; i++) {
-            if (req.body.roles[i] != foundRoles[i].name) {
-                res.status(401).json(`${req.body.roles[i]} Not exist`);
-                break;
+    const { roles } = req.body;
+    if (roles) {
+        try {
+            const foundRoles = (await Roles.find()).map(rol => rol.name);
+            const role = await roles.filter((rol: any) => !foundRoles.includes(rol));
+            if (role) {
+                res.json(`The role ${role} not exist in database`);
+            }else{
+                next();
             }
+        } catch (error: any) {
+            res.status(400).json(error.message);
         }
     }
     next();
+}
+
+export const authentication = async (req: Request, res: Response, next: NextFunction) => {
+    const jwtHeader = req.headers['x-access-token'];
+    const token = jwtHeader?.toString();
+    try {
+        if (!token) return res.json('Token no provided');
+        if (!await verifyToken(token)) return;
+        next();
+    } catch (error: any) {
+        res.status(500).json(error.message);
+    }
+
+}
+
+export const authAdmin = async (req: Request, res: Response, next: NextFunction) => {
+    const jwtHeader = req.headers['x-access-token'];
+    const token = jwtHeader?.toString();
+    if (!token) return res.json('Not token provided');
+
+    try {
+        const decoded = await verifyToken(token);
+        if (!decoded) return;
+        const arrDeco = Object.entries(decoded);
+        const claims = Object.fromEntries(arrDeco);
+        const foundUser = await UserModel.findById(claims.id);
+        const foundRoles = await Roles.findOne({ name: { $in: 'admin' } });
+        foundUser?.roles.filter(rol => rol._id === foundRoles?._id) ? next() : res.json('unauthorized')
+    } catch (error: any) {
+        res.status(500).json(error.message);
+    }
 }
