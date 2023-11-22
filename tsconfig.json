@@ -1,12 +1,18 @@
 {
     "compilerOptions": {
       "module": "commonjs",
-      "target": "es6",
+      "target": "es2022",
       "outDir": "./dist",
       "strict": true,
       "esModuleInterop": true,
       "skipLibCheck": true,
-      "forceConsistentCasingInFileNames": true
+      "forceConsistentCasingInFileNames": true,
+      "baseUrl": "./src",
+      "paths": {
+        "@models/*":["models/*"],
+        "@libs/*":["libs/*"],
+        "@config/*":["config/*"]
+      }
     },
     "exclude": [
       "node_modules",

@@ -1,0 +1,6 @@
+{
+    "ext":".ts, .json, .graphql",
+    "ignore":["src/**/*.test.ts"],
+    "watch":["./src/*.ts", "/src/.graphql"],
+    "exec":"ts-node -r tsconfig-paths/register ./src/app.ts"
+}
