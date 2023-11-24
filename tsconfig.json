@@ -11,7 +11,8 @@
       "paths": {
         "@models/*":["models/*"],
         "@libs/*":["libs/*"],
-        "@config/*":["config/*"]
+        "@config/*":["config/*"],
+        "@services/*":["services/*"]
       }
     },
     "exclude": [

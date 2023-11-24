@@ -1,3 +1,34 @@
 type Query {
-  examplequery:String
+  getUser(id:ID!):User!
+  getAllUser:[User!]!
+}
+
+type Mutation{
+  createUser(dto:UserInput!):User!
+  updateUser(id:ID!, dto:UpdateInput):User!
+}
+
+type User{
+  id:ID
+  userName:String
+  password:String
+  email:String
+  firstName:String
+  lastName:String
+}
+
+input UserInput{
+  userName:String!
+  password:String!
+  email:String!
+  firstName:String!
+  lastName:String
+}
+
+input UpdateInput{
+  userName:String
+  password:String
+  email:String
+  firstName:String
+  lastName:String 
 }

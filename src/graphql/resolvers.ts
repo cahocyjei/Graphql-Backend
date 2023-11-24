@@ -1,7 +1,12 @@
+import { findUser, createUser, updateUser, findAll } from '@services/userResolvers';
+
 export  const resolvers = {
-    Query: {
-      examplequery: () =>{
-        return "Hello, World"
-      }
-    },
-  };
+  Query: {
+    getUser:findUser,
+    getAllUser:findAll,
+  },
+  Mutation:{
+    createUser,
+    updateUser,
+  },
+};
