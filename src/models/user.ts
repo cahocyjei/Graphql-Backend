@@ -1,13 +1,22 @@
 import { DataTypes, Model } from 'sequelize';
 import bcrypt from 'bcryptjs';
 import { sequelize } from '@libs/db/sequelize';
+import { Roles } from '@models/roles';
 export class User extends Model{
-  declare id:number;
-  declare userName:string;
-  declare password:string;
-  declare email:string;
-  declare firstName:string;
-  declare lastName:string;
+  public id!:number;
+  public userName!:string;
+  public password!:string;
+  public email!:string;
+  public firstName!:string;
+  public lastName!:string;
+  public roles!:[Roles];
+
+  static associate(models: any) {
+    this.belongsToMany(models.Role, {
+      through: 'UserRoles', // Nombre de la tabla intermedia
+      foreignKey: 'userId',
+    });
+  }
 
   static async encryptPassword(password:string){
     try {
@@ -22,7 +31,6 @@ export class User extends Model{
     return await bcrypt.compare(password,receivPassword);
   }
 }
-
 User.init({
   id: {
     type: DataTypes.INTEGER,

@@ -15,6 +15,7 @@
   "dependencies": {
     "@apollo/server": "^4.9.5",
     "@graphql-tools/load-files": "^7.0.0",
+    "@types/sequelize": "^4.28.19",
     "bcryptjs": "^2.4.3",
     "cookie-parser": "^1.4.6",
     "dotenv": "^16.3.1",
@@ -23,7 +24,7 @@
     "graphql": "^16.8.1",
     "jsonwebtoken": "^9.0.0",
     "pg": "^8.11.3",
-    "sequelize": "^6.35.0",
+    "sequelize": "^6.35.1",
     "validator": "^13.9.0"
   },
   "devDependencies": {

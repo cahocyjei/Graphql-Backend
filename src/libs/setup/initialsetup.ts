@@ -1,10 +1,11 @@
-import { Role } from '@models/roles';
+import { Role,Roles } from '@models/roles';
 import { User } from '@models/user';
-//Promesas
+import { sequelize } from '@libs/db/sequelize';
+
 const promesas = ()=>{
-  const roleAdm= Role.build({ name: 'admin' });
-  const roleUser= Role.build({ name: 'user' });
-  const roleModerator= Role.build({ name: 'moderator' });
+  const roleAdm= Role.build({ name: Roles.Admin });
+  const roleUser= Role.build({ name: Roles.User });
+  const roleModerator= Role.build({ name: Roles.Moderator });
   const promises = [
     roleAdm.save(),
     roleUser.save(),
@@ -16,22 +17,17 @@ async function InitRoles(){
   await Promise.all(promesas())
     .then(results=>{
       console.log('suscessfull Roles: ',results);
-    }).catch((error)=>console.error('Error al crear nuevos Roles: ',error));  
+    }).catch((error)=>console.error('Error al crear nuevos Roles: ',error));
 } 
-
-export async function initizializeTableRoles(){
+export async function TablesSyncAll(){
   try {
-    await Role.sync().then(async ()=>{
-      console.log('roles table created suscessfull');
+    await sequelize.sync().then(async()=>{
+      User.associate(sequelize.models);
+      Role.associate(sequelize.models);
       (await Role.findAll()).length ===0?await InitRoles():null;
+      console.log('Created suscessfull All tables');
     });
   } catch (error) {
-    console.error('Error to create roles table: ',error);
+    console.error('Error to create tables: ',error);
   }  
-}
-
-export async function initizializeTableUser(){
-  await User.sync()
-    .then(()=>console.log('Table User created suscessfull'))
-    .catch((error)=>console.error(error));
 }
