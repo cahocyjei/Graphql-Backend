@@ -15,7 +15,7 @@ type User{
   email:String
   firstName:String
   lastName:String
-  role:[Role]
+  roles:[Role]
 }
 type Role{
   id:ID!
@@ -28,7 +28,7 @@ input UserInput{
   email:String!
   firstName:String!
   lastName:String
-  role:[String!]!
+  roles:[String]
 }
 
 input UpdateInput{
@@ -37,5 +37,5 @@ input UpdateInput{
   email:String
   firstName:String
   lastName:String
-  role:[String!]
+  roles:[String!]
 }
