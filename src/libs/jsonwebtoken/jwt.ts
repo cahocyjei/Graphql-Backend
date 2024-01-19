@@ -11,7 +11,7 @@ export function createToken(payload:object,expire:object){
 }
 
 
-export const expireToken = (token:string)=>{
+export const decodeToken = (token:string)=>{
   const decoded = Object.entries(jwt.verify(token,Config.jwtsecret));
   const claims = Object.fromEntries(decoded);
   return claims;

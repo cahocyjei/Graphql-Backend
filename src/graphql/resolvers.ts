@@ -1,4 +1,5 @@
-import { findUser, createUser, updateUser, findAll } from '@services/userResolvers';
+import { findUser, createUser, updateUser, findAll, deleteUser } from '@services/userResolvers';
+import { login } from '@services/authLogin';
 
 export  const resolvers = {
   Query: {
@@ -6,7 +7,9 @@ export  const resolvers = {
     getAllUser:findAll,
   },
   Mutation:{
+    login,
     createUser,
     updateUser,
+    deleteUser,
   },
 };
