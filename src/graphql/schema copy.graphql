@@ -1,0 +1,50 @@
+type Query {
+  getUser(id:ID!):User!
+  getAllUser:[User!]!
+}
+
+type Mutation{
+  createUser(dto:UserInput!):User!
+  updateUser(id:ID!, dto:UpdateInput):User!
+  deleteUser(id:ID!):String
+  login(email:String,password:String):AuthResponse!
+}
+
+type User{
+  id:ID
+  userName:String
+  password:String
+  email:String
+  firstName:String
+  lastName:String
+  roles:[Role]
+}
+type Role{
+  id:ID!
+  name:String!
+}
+
+type AuthResponse{
+  token:String
+  userName:String,
+  password:String,
+  email:String
+}
+
+input UserInput{
+  userName:String!
+  password:String!
+  email:String!
+  firstName:String!
+  lastName:String
+  roles:[String]
+}
+
+input UpdateInput{
+  userName:String
+  password:String
+  email:String
+  firstName:String
+  lastName:String
+  roles:[String!]
+}

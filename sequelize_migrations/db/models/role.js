@@ -1,4 +1,4 @@
-const { DataTypes, Model } = require('sequelize');
+const { DataTypes } = require('sequelize');
 
 const ROLE_TABLE = 'Roles'
 
@@ -24,23 +24,4 @@ const RoleSchema = {
   }
 };
 
-class Role extends Model {
-  static associate(models) {
-    this.belongsToMany(models.User, {
-      through:'UserRoles',
-      timestamps:true,
-      createdAt: 'created_at',
-      updatedAt: 'updated_at'
-    });
-  }
-
-  static config(sequelize) {
-    return {
-      sequelize,
-      tableName: ROLE_TABLE,
-      modelName: 'Role',
-      timestamps: false
-    }
-  }
-}
-module.exports = {Role, ROLE_TABLE, RoleSchema};
+module.exports = {ROLE_TABLE, RoleSchema};

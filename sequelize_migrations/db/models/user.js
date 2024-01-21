@@ -1,4 +1,4 @@
-const { DataTypes, Model } = require('sequelize');
+const { DataTypes } = require('sequelize');
 
 const USER_TABLE = 'Users';
 const UserSchema = {
@@ -39,25 +39,4 @@ const UserSchema = {
     field: 'updated_at',
   }
 };
-  
-class User extends Model {
-  static associate(models) {
-    this.belongsToMany(models.Role, { 
-      through:'UserRoles',
-      through:'UserRoles',
-      timestamps:true,
-      createdAt: 'created_at',
-      updatedAt: 'updated_at'
-    });
-  }
-
-  static config(sequelize) {
-    return {
-      sequelize,
-      tableName: USER_TABLE,
-      modelName: 'User',
-      timestamps: false
-    }
-  }
-} 
-module.exports = { User, USER_TABLE, UserSchema };
+module.exports = { USER_TABLE, UserSchema };
