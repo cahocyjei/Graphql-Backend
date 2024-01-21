@@ -7,14 +7,7 @@
     "dev": "npm run lint && nodemon",
     "start": "node /src/app.ts",
     "lint": "eslint . --ext .ts",
-    "lint:fix": "eslint . --ext .ts --fix",
-    "seed:generate": "npx sequelize seed:generate --name",
-    "seed:all": "npx sequelize-cli db:seed:all",
-    "seed:undo": "npx sequelize-cli db:seed:undo:all",
-    "migrations:generate": "npx sequelize-cli migration:generate --name",
-    "migrations:run": "npx sequelize-cli db:migrate",
-    "migrations:revert": "npx sequelize-cli db:migrate:undo",
-    "migrations:delete": "npx sequelize-cli db:migrate:undo:all"
+    "lint:fix": "eslint . --ext .ts --fix"
   },
   "keywords": [],
   "author": "",
