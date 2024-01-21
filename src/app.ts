@@ -1,2 +1,2 @@
-import { ServerStart } from '@libs/db/server';
+import { ServerStart } from '@libs/server';
 ServerStart();
