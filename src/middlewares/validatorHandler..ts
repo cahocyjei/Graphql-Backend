@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import { User } from '@models/user';
+import { User } from 'db/models/user';
 
 const validatorHandler = ()=>{
   return (res: Response, req: Request, next: NextFunction) => {

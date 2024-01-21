@@ -1,6 +1,6 @@
-import { createToken } from '@libs/jsonwebtoken/jwt';
-import { comparePassword } from '@libs/jsonwebtoken/bcrypts';
-import User from '@models/user';
+import { createToken } from '@libs/jwt';
+import { comparePassword } from '@libs/bcrypts';
+import User from 'db/models/user';
 export const login = async (_:any,{ email, password }:any)=>{
   try {
     const user = await User.findOne({ where:{ email } });
