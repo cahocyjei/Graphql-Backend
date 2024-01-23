@@ -1,7 +1,7 @@
 import { createUser } from '@services/userResolvers';
 
 export  const resolvers = {
-  Query: {
+  Query:{
   },
   Mutation:{
     createUser,

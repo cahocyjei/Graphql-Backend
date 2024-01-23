@@ -9,17 +9,17 @@ module.exports = {
       {
         name: 'ADMIN',
         created_at: new Date(),
-        updated_at: new Date()
+        updated_at: new Date(),
       },
       {
         name: 'USER',
         created_at: new Date(),
-        updated_at: new Date()
+        updated_at: new Date(),
       },
       {
         name: 'MODERATOR',
         created_at: new Date(),
-        updated_at:new Date()
+        updated_at:new Date(),
       },
     ]);
   },
@@ -28,5 +28,5 @@ module.exports = {
       queryInterface = queryInterface.context;
     }
     await queryInterface.bulkDelete(ROLE_TABLE, null, {});
-  }
+  },
 };

@@ -1,6 +1,6 @@
 import { DataTypes, Model } from 'sequelize';
 import { iRole } from './role';
-
+import { encryptPassword } from '@libs/bcrypts';
 export interface iUser {
     id: number;
     userName: string;
@@ -29,6 +29,10 @@ export const initUserModel = (sequelize: any) => {
     password:{
       type:DataTypes.STRING,
       allowNull:false,
+      async set(value: string) {
+        const password = await encryptPassword(value);
+        this.setDataValue('password', password);
+      },
     },
     email:{
       type:DataTypes.STRING,
@@ -52,5 +56,5 @@ export const initUserModel = (sequelize: any) => {
       type: DataTypes.DATE,
       field: 'updated_at',
     },
-  }, { sequelize, modelName: 'User' });
+  }, { sequelize, tableName: 'Users' });
 };

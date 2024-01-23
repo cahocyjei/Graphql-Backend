@@ -12,7 +12,7 @@ export default {
       'env': {
         'node': true,
       },
-      'files': ['*.ts', '.js'],
+      'files': ['*.ts'],
       'parserOptions': {
         'sourceType': 'script',
       },

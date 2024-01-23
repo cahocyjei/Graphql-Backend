@@ -1,10 +1,10 @@
 import { DataTypes, Model } from 'sequelize';
 
 export interface iRole {
-    id: number;
+    id?: number;
     name: string;
-    createdAt: Date;
-    updatedAt: Date;
+    createdAt?: Date;
+    updatedAt?: Date;
 }
 export class Role extends Model {}
 export const initRoleModel = (sequelize: any) => {
@@ -28,5 +28,6 @@ export const initRoleModel = (sequelize: any) => {
       type: DataTypes.DATE,
       field: 'updated_at',
     },
-  }, { sequelize, modelName: 'Role' });
+  }, { sequelize, tableName: 'Roles' });
+  
 };

@@ -5,6 +5,7 @@
       "eslint:recommended",
       "plugin:@typescript-eslint/recommended"
     ],
+    "ignorePatterns": ["**/*.js"],
     "rules": {
         "quotes": ["error", "single"],
         "semi": ["error", "always"],

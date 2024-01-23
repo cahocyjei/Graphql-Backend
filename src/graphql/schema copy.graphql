@@ -1,50 +1,40 @@
 type Query {
-  getUser(id:ID!):User!
-  getAllUser:[User!]!
+  getUser: UserDto!
 }
 
-type Mutation{
-  createUser(dto:UserInput!):User!
-  updateUser(id:ID!, dto:UpdateInput):User!
-  deleteUser(id:ID!):String
-  login(email:String,password:String):AuthResponse!
+type Mutation {
+  createUser(dto: UserInput!): UserDto!
 }
 
-type User{
-  id:ID
-  userName:String
-  password:String
-  email:String
-  firstName:String
-  lastName:String
-  roles:[Role]
-}
-type Role{
-  id:ID!
-  name:String!
+type UserDto {
+  id: ID
+  userName: String
+  password: String
+  email: String
+  firstName: String
+  lastName: String
+  roles: [Role!]
 }
 
-type AuthResponse{
-  token:String
-  userName:String,
-  password:String,
-  email:String
+type Role {
+  id: ID!
+  name: String!
 }
 
-input UserInput{
-  userName:String!
-  password:String!
-  email:String!
-  firstName:String!
-  lastName:String
-  roles:[String]
+type UserRole {
+  userId: ID
+  roleId: ID
 }
 
-input UpdateInput{
-  userName:String
-  password:String
-  email:String
-  firstName:String
-  lastName:String
-  roles:[String!]
+input UserInput {
+  userName: String!
+  password: String!
+  email: String!
+  firstName: String!
+  lastName: String
+  roles: [ID]
+}
+input InputRole {
+  id: ID!
+  name: String!
 }
