@@ -1,5 +1,5 @@
-import { createToken } from '@libs/jwt';
-import { comparePassword } from '@libs/bcrypts';
+import { createToken } from 'utils/jwt';
+import { comparePassword } from 'utils/bcrypts';
 import User from 'db/models/user';
 export const login = async (_:any,{ email, password }:any)=>{
   try {

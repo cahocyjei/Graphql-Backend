@@ -1,6 +1,6 @@
 import { DataTypes, Model } from 'sequelize';
 import { iRole } from './role';
-import { encryptPassword } from '@libs/bcrypts';
+import { encryptPassword } from 'utils/bcrypts';
 export interface iUser {
     id: number;
     userName: string;

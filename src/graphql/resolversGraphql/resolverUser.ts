@@ -1,11 +1,40 @@
 import { Connection } from 'config/sequelize';
 import { iUser } from 'models/user';
 
+const sequelize = new Connection().sequelize;
+const { User, Role } = sequelize.models;
+
+export const findAll = () =>{
+  try {
+    return sequelize.transaction(async(t:any)=>{
+      const findAllUsers = await User.findAll({ 
+        include: [{ model: Role, as: 'roles' }],
+        transaction: t,
+      });
+      return findAllUsers;
+    });
+  } catch (error) {
+    throw new Error('Error' + error);
+  }
+};
+
+export const findById = async (_:any,{ idUser }:any)=>{
+  try {
+    return sequelize.transaction(async(t:any)=>{
+      const userFindWithRoles = await User.findByPk(idUser, { 
+        include: [{ model: Role, as: 'roles' }],
+        transaction: t,
+      });
+      return userFindWithRoles;
+    });
+  } catch (error) {
+    throw new Error('Error' + error);
+  }
+};
+
 export const createUser = async (_: any, params : any) => {
   try {
-    const sequelize = new Connection().sequelize;
     const userDto: iUser = params.dto;
-    const { User, Role } = sequelize.models;
     const { roles } = userDto;
     const userSaved: any = User.build(userDto as any);
     const result = await sequelize.transaction(async (t) => {

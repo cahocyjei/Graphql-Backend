@@ -1,3 +1,6 @@
+import { buildSchema } from 'graphql';
+
+export const shemaUser = buildSchema(`
 type Query {
   getUser: UserDto!
   getUserById(idUser:ID):UserDto!
@@ -31,3 +34,4 @@ input UserInput {
   lastName: String
   roles: [ID]
 }
+`);
